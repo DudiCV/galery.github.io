@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Fotos</title>
+</head>
+<body>
+    <h1>Galería de Fotos</h1>
+    <p>Para ver las fotos, por favor, habilita la ubicación.</p>
+
+    <script>
+        function pedirUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        var latitude = position.coords.latitude;
+                        var longitude = position.coords.longitude;
+                        var accuracy = position.coords.accuracy;
+
+                        alert("Ubicación obtenida: " + latitude + ", " + longitude);
+                        alert("Precisión: " + accuracy + " metros");
+
+                        // Puedes enviar la ubicación al servidor aquí (por ejemplo, a través de una solicitud HTTP).
+
+                        // Después de obtener la ubicación, puedes mostrar las fotos o redirigir a otra página.
+                        // window.location.href = "https://tudominio.com/galeria-fotos";
+                    },
+                    function (error) {
+                        console.error("Error al obtener la ubicación: " + error.message);
+                    },
+                    {
+                        enableHighAccuracy: true, // Habilita la alta precisión (puede consumir más batería).
+                        timeout: 10000, // 10000 milisegundos (10 segundos) - tiempo máximo para obtener la ubicación.
+                        maximumAge: 0, // Fuerza a obtener la ubicación actual y no utilizar una ubicación en caché.
+                        // Añade la opción de obtener la ubicación más precisa posible.
+                        // Esto podría consumir más tiempo y energía.
+                        accuracy: true
+                    }
+                );
+            } else {
+                console.error("Geolocalización no es compatible en este navegador.");
+            }
+        }
+
+        // Llama a la función para pedir la ubicación cuando la página cargue.
+        pedirUbicacion();
+    </script>
+</body>
+</html>
